@@ -68,7 +68,7 @@ type fromDb struct {
 	TheTemp        float64
 }
 
-var db *sql.DB
+var database *sql.DB
 
 func main() {
 	url := "https://www.metaweather.com/api/location/2122265"
@@ -77,28 +77,13 @@ func main() {
 
 	mWeather := getJson(bodyByte)
 
-	//fmt.Println(mWeather.ConsolidatedWeather[0])
-
-	b, err := json.Marshal(mWeather.ConsolidatedWeather[0])
-	if err != nil {
-		fmt.Println("error:", err)
-	}
-	//os.Stdout.Write(b)
-
-	var cmWeather ConsolidatedWeather
-
-	jsonErr2 := json.Unmarshal(b, &cmWeather)
-	if jsonErr2 != nil {
-		log.Fatal(jsonErr2)
-	}
-
-	fmt.Println(cmWeather.WeatherStateName)
-
+	//connection to db:
 	connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		panic(err)
 	}
+	database = db
 	defer db.Close()
 
 	err = db.Ping()
@@ -155,7 +140,7 @@ func writeToDb(mW Weather, db *sql.DB) {
 }
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
-	rows, errRead := db.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-08")
+	rows, errRead := database.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-08")
 	if errRead != nil {
 		panic(errRead)
 	}

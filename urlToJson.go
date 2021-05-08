@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -67,6 +68,8 @@ type fromDb struct {
 	TheTemp        float64
 }
 
+var db *sql.DB
+
 func main() {
 	url := "https://www.metaweather.com/api/location/2122265"
 
@@ -107,29 +110,10 @@ func main() {
 
 	writeToDb(mWeather, db)
 
-	rows, errRead := db.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-08")
-	if errRead != nil {
-		panic(errRead)
-	}
-	defer rows.Close()
+	http.HandleFunc("/", IndexHandler)
 
-	//fmt.Println(rows)
-
-	qWeather := []fromDb{}
-
-	for rows.Next() {
-		p := fromDb{}
-		errRows := rows.Scan(&p.ID, &p.WeatherStateName, &p.WindDirectionCompass, &p.Created, &p.ApplicableDate, &p.MinTemp, &p.MaxTemp, &p.TheTemp)
-		if errRows != nil {
-			fmt.Println(errRows)
-			continue
-		}
-		qWeather = append(qWeather, p)
-	}
-
-	for _, p := range qWeather {
-		fmt.Println(p.ID, p.ApplicableDate, p.Created)
-	}
+	fmt.Println("Server is listening...")
+	http.ListenAndServe(":8181", nil)
 
 }
 
@@ -168,4 +152,34 @@ func writeToDb(mW Weather, db *sql.DB) {
 	}
 
 	fmt.Println("Write to DB OK!")
+}
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+
+	rows, errRead := db.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-08")
+	if errRead != nil {
+		panic(errRead)
+	}
+	defer rows.Close()
+
+	//fmt.Println(rows)
+
+	qWeather := []fromDb{}
+
+	for rows.Next() {
+		p := fromDb{}
+		errRows := rows.Scan(&p.ID, &p.WeatherStateName, &p.WindDirectionCompass, &p.Created, &p.ApplicableDate, &p.MinTemp, &p.MaxTemp, &p.TheTemp)
+		if errRows != nil {
+			fmt.Println(errRows)
+			continue
+		}
+		qWeather = append(qWeather, p)
+	}
+	tmpl, _ := template.ParseFiles("template/index.html")
+	tmpl.Execute(w, qWeather)
+
+	/*
+		for _, p := range qWeather {
+			fmt.Println(p.ID, p.ApplicableDate, p.Created)
+		}
+	*/
 }

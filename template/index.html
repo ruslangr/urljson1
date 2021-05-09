@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>MetaWeather</title>
+    </head>
+    <body>
+        <table>
+            <thead><th>ID</th><th>WeatherStateName</th><th>WindDirectionCompass</th><th>Created</th><th>ApplicableDate</th><th>MinTemp</th><th>MaxTemp</th><th>TheTemp</th></thead>
+            {{range . }}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.WeatherStateName}}</td>
+                <td>{{.WindDirectionCompass}}</td>
+                <td>{{.Created}}</td>
+                <td>{{.ApplicableDate}}</td>
+                <td>{{.MinTemp}}</td>
+                <td>{{.MaxTemp}}</td>
+                <td>{{.TheTemp}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </body>
+</html>

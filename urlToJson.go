@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/golang/glog"
 	_ "github.com/lib/pq"
 )
 
@@ -93,13 +94,42 @@ func main() {
 		fmt.Println("Connection OK")
 	}
 
-	writeToDb(mWeather, db)
+	//check if row not exist - write to DB
+	fl := rowExists("SELECT ID FROM Weather WHERE ID=$1", mWeather.ConsolidatedWeather[0].ID)
+	if fl == false {
+		writeToDb(mWeather, db)
+	}
 
-	http.HandleFunc("/", IndexHandler)
+	/*
+		//-------------------------------------------------------------------------------------
+		rows, errRead := database.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "	'2021-05-12")
+		if errRead != nil {
+			panic(errRead)
+		}
+		defer rows.Close()
 
+		//fmt.Println(rows)
+
+		qWeather := []fromDb{}
+
+		for rows.Next() {
+			p := fromDb{}
+			errRows := rows.Scan(&p.ID, &p.WeatherStateName, &p.WindDirectionCompass, &p.Created, &p.ApplicableDate, &p.MinTemp, &p.MaxTemp, &p.TheTemp)
+			if errRows != nil {
+				fmt.Println(errRows)
+				continue
+			}
+			qWeather = append(qWeather, p)
+		}
+		for _, p := range qWeather {
+			fmt.Println(p.ID, p.ApplicableDate, p.Created)
+		}
+		//-------------------------------------------------------------------------------------
+	*/
+	http.HandleFunc("/create", CreateHandler)
+	//	http.HandleFunc("/", IndexHandler)
 	fmt.Println("Server is listening...")
 	http.ListenAndServe(":8181", nil)
-
 }
 
 func getUrl(url string) []byte {
@@ -140,9 +170,9 @@ func writeToDb(mW Weather, db *sql.DB) {
 }
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
-	rows, errRead := database.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-08")
-	if errRead != nil {
-		panic(errRead)
+	rows, err := database.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", "2021-05-09")
+	if err != nil {
+		panic(err)
 	}
 	defer rows.Close()
 
@@ -161,10 +191,45 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl, _ := template.ParseFiles("template/index.html")
 	tmpl.Execute(w, qWeather)
-
-	/*
-		for _, p := range qWeather {
-			fmt.Println(p.ID, p.ApplicableDate, p.Created)
+}
+func rowExists(query string, args int64) bool {
+	var exists bool
+	query = fmt.Sprintf("SELECT exists (%s)", query)
+	err := database.QueryRow(query, args).Scan(&exists)
+	if err != nil && err != sql.ErrNoRows {
+		glog.Fatalf("error checking if row exists '%s' %v", args, err)
+	}
+	return exists
+}
+func CreateHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		err := r.ParseForm()
+		if err != nil {
+			log.Println(err)
 		}
-	*/
+		date := r.FormValue("date")
+
+		rows, err1 := database.Query("SELECT * FROM Weather WHERE ApplicableDate = $1 ORDER BY Created", date)
+		if err1 != nil {
+			log.Println(err)
+		}
+		defer rows.Close()
+		qWeather := []fromDb{}
+
+		for rows.Next() {
+			p := fromDb{}
+			errRows := rows.Scan(&p.ID, &p.WeatherStateName, &p.WindDirectionCompass, &p.Created, &p.ApplicableDate, &p.MinTemp, &p.MaxTemp, &p.TheTemp)
+			if errRows != nil {
+				fmt.Println(errRows)
+				continue
+			}
+			qWeather = append(qWeather, p)
+		}
+		tmpl, _ := template.ParseFiles("template/index.html")
+		tmpl.Execute(w, qWeather)
+		http.Redirect(w, r, "/", 301)
+		//		http.Redirect(w, r, "/", 301)
+	} else {
+		http.ServeFile(w, r, "template/create.html")
+	}
 }

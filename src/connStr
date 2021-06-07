@@ -1,0 +1,1 @@
+user=postgres password=p0STgreS dbname=postgres sslmode=disable host=localhost

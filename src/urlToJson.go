@@ -81,7 +81,7 @@ func main() {
 	//connection to db:
 	//	connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable host=pghost"
 
-	connStr, err := ioutil.ReadFile("./connStr")
+	connStr, err := ioutil.ReadFile("/app/connStr")
 	if err != nil {
 		log.Fatal(err)
 	}

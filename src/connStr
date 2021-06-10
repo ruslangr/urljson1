@@ -1,1 +1,1 @@
-user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=cicd-cls:europe-north1:pghost
+user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=34.88.116.220

@@ -1,1 +1,1 @@
-user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=pghost
+user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=pghost port=5432

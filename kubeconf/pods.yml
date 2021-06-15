@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: urltojson-app
+spec:
+  containers:
+    - name: urltojson
+      image: ruslangr/urltojson:latest
+      ports:
+        - containerPort: 8181
+    
+    - name: pgkube
+      image: postgres
+      ports:
+        - containerPort: 5432
+      env:
+        - name: POSTGRES_USER
+          value: pguser
+        - name: POSTGRES_PASSWORD
+          value: p0$Tgr_gcp1
+        

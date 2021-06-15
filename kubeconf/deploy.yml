@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stage
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: urltojson-app
+spec:
+  selector:
+    matchLabels:
+      run: urltojson-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: urltojson-app
+    spec:
+      containers:
+      - name: urltojson
+        image: ruslangr/urltojson:latest
+        ports:
+        - containerPort: 8181
+        ports:
+        - containerPort: 5432 
+
+  

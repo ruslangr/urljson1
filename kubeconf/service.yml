@@ -1,0 +1,14 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: urltojson-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: urltojson-app
+  ports:
+  - protocol: TCP
+    port: 8181
+    targetPort: 8181
+    

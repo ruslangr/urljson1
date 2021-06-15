@@ -1,1 +1,1 @@
-user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=34.88.116.220
+user=postgres password=p0$Tgr_gcp1 dbname=postgres sslmode=disable host=dbk8s.cl7qr0tjero7.us-west-2.rds.amazonaws.com

@@ -19,6 +19,7 @@ resource "google_container_cluster" "cicd_c1" {
  min_master_version = "1.18"
  remove_default_node_pool = true
  initial_node_count = 1
+ network = "cvpc"
 }
 resource "google_container_node_pool" "linux_pool" {
  name               = "linux-pool"

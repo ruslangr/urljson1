@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/golang/glog"
@@ -81,12 +82,21 @@ func main() {
 	//connection to db:
 	//	connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable host=pghost"
 
-	connStr, err := ioutil.ReadFile("/app/connStr")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(string(connStr))
+	userDb := os.Getenv("userdb")
+	passDb := os.Getenv("passdb")
+	nameDb := os.Getenv("namedb")
+	sslmodeDb := os.Getenv("sslmodedb")
+	hostDb := os.Getenv("hostDb")
 
+	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
+
+	/*
+		connStr, err := ioutil.ReadFile("/app/connStr")
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(string(connStr))
+	*/
 	//connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable"
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {

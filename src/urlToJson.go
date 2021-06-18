@@ -86,7 +86,7 @@ func main() {
 	passDb := os.Getenv("passdb")
 	nameDb := os.Getenv("namedb")
 	sslmodeDb := os.Getenv("sslmodedb")
-	hostDb := os.Getenv("hostDb")
+	hostDb := os.Getenv("hostdb")
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
 

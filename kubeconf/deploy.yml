@@ -25,6 +25,40 @@ spec:
       containers:
       - name: urltojson
         image: ruslangr/urltojson:latest
+        env:
+        - name: PG_SERVER
+          valueFrom: 
+            configMapKeyRef: 
+              name: urltojson-configmap
+              key: mongodb-service
+        - name: SSL_MODE
+          valueFrom: 
+            configMapKeyRef: 
+              name: urltojson-configmap
+              key: sslmodedb
+        - name: NAME_DB
+          valueFrom: 
+            configMapKeyRef: 
+              name: urltojson-configmap
+              key: namedb
+        - name: USER_DB
+          valueFrom: 
+            configMapKeyRef: 
+              name: urltojson-configmap
+              key: userdb
+         - name: PASS_DB
+          valueFrom:
+            secretKeyRef:
+              name: urltojson-secret
+              key: password
+
+
+
+
+
+
+
+
 #        ports:
 #        - containerPort: 8181
 #        ports:

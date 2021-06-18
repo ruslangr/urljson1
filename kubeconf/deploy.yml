@@ -46,11 +46,11 @@ spec:
             configMapKeyRef: 
               name: urltojson-configmap
               key: userdb
-         - name: PASS_DB
+        - name: PASS_DB
           valueFrom:
             secretKeyRef:
               name: urltojson-secret
-              key: password
+              key: passdb
 
 
 

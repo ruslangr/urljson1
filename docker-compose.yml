@@ -1,31 +1,15 @@
-# Use postgres/example user/password credentials
 version: '3.1'
 
 services:
   
-  pghost:
-    image: postgres
-#    restart: always
-    volumes:
-      - postgres:/var/lib/postgresql/data
+  urltojson-env:
+    image: e77b7e8d53b4 
     environment:
-#      POSTGRES_USER: pguser      
-      POSTGRES_PASSWORD: p0STgreS
-#      POSTGRES_DB: pgdb
+      userdb: postgres
+      namedb: postgres
+      sslmodedb: disable
+      hostdb: rdsdb.cl7qr0tjero7.us-west-2.rds.amazonaws.com
+      passdb: p0Tgr_aws2248
     ports:
       - 5432:5432
-#  adminer:
-#    image: adminer
-#    restart: always
-#    ports:
-#      - 8080:8080
-
-#  app:
-#    build: .
-#    image: cd1c13fd40c0
-#    ports:
-#      - 8181:8181
-#      - 8080:8080
-volumes:
-  postgres:
-    external: true
+      - 8181:8181

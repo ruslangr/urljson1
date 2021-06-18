@@ -89,7 +89,7 @@ func main() {
 	hostDb := os.Getenv("hostdb")
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
-
+	fmt.Println(connStr)
 	/*
 		connStr, err := ioutil.ReadFile("/app/connStr")
 		if err != nil {

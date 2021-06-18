@@ -8,7 +8,6 @@ spec:
       image: ruslangr/urltojson:latest
       ports:
         - containerPort: 8181
-    
     - name: pgkube
       image: postgres
       ports:

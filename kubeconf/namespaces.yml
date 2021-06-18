@@ -1,12 +1,12 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: stage
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: prod
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: stage
+#---
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: prod
 ---
 apiVersion: v1
 kind: Pod
@@ -16,7 +16,7 @@ spec:
   containers:
   - name: urltojson
     image: ruslangr/urltojson:latest
-    ports:
-      - containerPort: 8181
+#    ports:
+#      - containerPort: 8181
 #    ports:
 #      - containerPort: 5432 

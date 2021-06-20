@@ -24,13 +24,13 @@ spec:
     spec:
       containers:
       - name: urltojson
-        image: ruslangr/urltojson:latest
+        image: ruslangr/urltojson1:latest
         env:
         - name: PG_SERVER
           valueFrom: 
             configMapKeyRef: 
               name: urltojson-configmap
-              key: mongodb-service
+              key: hostdb
         - name: SSL_MODE
           valueFrom: 
             configMapKeyRef: 

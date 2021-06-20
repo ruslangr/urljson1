@@ -24,29 +24,29 @@ spec:
     spec:
       containers:
       - name: urltojson
-        image: ruslangr/urltojson1:latest
+        image: ruslangr/urltojson:latest
         env:
-        - name: PG_SERVER
+        - name: hostdb
           valueFrom: 
             configMapKeyRef: 
               name: urltojson-configmap
               key: hostdb
-        - name: SSL_MODE
+        - name: sslmodedb
           valueFrom: 
             configMapKeyRef: 
               name: urltojson-configmap
               key: sslmodedb
-        - name: NAME_DB
+        - name: namedb
           valueFrom: 
             configMapKeyRef: 
               name: urltojson-configmap
               key: namedb
-        - name: USER_DB
+        - name: userdb
           valueFrom: 
             configMapKeyRef: 
               name: urltojson-configmap
               key: userdb
-        - name: PASS_DB
+        - name: passdb
           valueFrom:
             secretKeyRef:
               name: urltojson-secret

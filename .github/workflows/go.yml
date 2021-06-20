@@ -42,3 +42,16 @@ jobs:
         context: .
         push: true
         tags: ruslangr/urltojson:latest
+        
+    - name: AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          
+    - name: Deploy to K8S cluster                                                                            
+      uses: kodermax/kubectl-aws-eks@master                                                                         
+      env:                                                                                                          
+        RELEASE_IMAGE: ruslangr/urltojson:latest
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}

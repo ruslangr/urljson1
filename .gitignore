@@ -2,7 +2,7 @@
 ./terra/.terraform/*
 *.tfstate
 *.tfstate.*
-./kubeconf/urltojson-configmap.yml
-./kubeconf/urltojson-secret.yml
-./src/connStr
+kubeconf/urltojson-configmap.yml
+kubeconf/urltojson-secret.yml
+src/connStr
 terra/var.tf

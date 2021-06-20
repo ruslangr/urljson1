@@ -55,3 +55,5 @@ jobs:
       env:                                                                                                          
         RELEASE_IMAGE: ruslangr/urltojson:latest
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: rollout status deployment/urltojson-app

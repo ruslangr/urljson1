@@ -5,4 +5,4 @@
 ./kubeconf/urltojson-configmap.yml
 ./kubeconf/urltojson-secret.yml
 ./src/connStr
-./terra/var.tf
+terra/var.tf

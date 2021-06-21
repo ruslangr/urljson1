@@ -2,7 +2,11 @@
 ./terra/.terraform/*
 *.tfstate
 *.tfstate.*
+*.tfvars
+.terraformrc
+terraform.rc
 kubeconf/urltojson-configmap.yml
 kubeconf/urltojson-secret.yml
 src/connStr
 terra/var.tf
+terra/kubeconfig_ruslangr-eks

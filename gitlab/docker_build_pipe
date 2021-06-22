@@ -1,0 +1,13 @@
+docker-build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:18.09.7-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+  script:
+    - docker build --pull -t ruslangr/urltojson_gitlab .
+    - docker push ruslangr/urltojson_gitlab
+  # Run this job in a branch where a Dockerfile exists
+variables:
+  DOCKER_HOST: tcp://localhost:2375

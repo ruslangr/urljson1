@@ -1,0 +1,2 @@
+helm install --namespace cicd gitlab-runner -f values_ep.yaml gitlab/gitlab-runner
+helm upgrade --namespace cicd -f values_ep.yaml gitlab-runner gitlab/gitlab-runner

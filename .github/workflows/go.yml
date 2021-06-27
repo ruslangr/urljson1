@@ -23,6 +23,12 @@ jobs:
       
     - name: Install pg driver
       run: go get github.com/lib/pq
+
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@v1.1.0
+      with:
+        host: ${{ secrets.SONARQUBE_HOST }}
+        login: ${{ secrets.SONARQUBE_TOKEN }}
       
     - name: Build app
       run: go build ./src/urlToJson.go

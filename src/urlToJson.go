@@ -85,7 +85,7 @@ func main() {
 	hostDb := os.Getenv("hostdb")
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
-	fmt.Println(connStr)
+	//fmt.Println(connStr)
 
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {

@@ -63,11 +63,10 @@ type fromDb struct {
 	WeatherStateName     string
 	WindDirectionCompass string
 	Created              time.Time
-	//	ApplicableDate       time.Time
-	ApplicableDate string
-	MinTemp        float64
-	MaxTemp        float64
-	TheTemp        float64
+	ApplicableDate       string
+	MinTemp              float64
+	MaxTemp              float64
+	TheTemp              float64
 }
 
 var database *sql.DB

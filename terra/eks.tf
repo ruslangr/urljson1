@@ -22,12 +22,13 @@ module "eks" {
 
   workers_group_defaults = {
     root_volume_type = "gp2"
+    volume_size = "8"
   }
 
   worker_groups = [
     { 
 #      key_name = "remote_access"
-      instance_type                 = "t2.micro"
+      instance_type                 = "t2.medium"
       asg_desired_capacity          = 3
       additional_security_group_ids = [aws_security_group.worker_group.id]
     }

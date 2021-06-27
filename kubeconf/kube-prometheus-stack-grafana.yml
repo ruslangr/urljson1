@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"meta.helm.sh/release-name":"kube-prometheus-stack","meta.helm.sh/release-namespace":"monit"},"creationTimestamp":"2021-06-26T09:00:53Z","labels":{"app.kubernetes.io/instance":"kube-prometheus-stack","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"grafana","app.kubernetes.io/version":"8.0.3","helm.sh/chart":"grafana-6.13.5"},"name":"kube-prometheus-stack-grafana","namespace":"monit","resourceVersion":"2118","uid":"ef8bfa82-102a-4b22-b258-dc56c436cf19"},"spec":{"clusterIP":"172.20.158.81","clusterIPs":["172.20.158.81"],"ports":[{"name":"service","port":80,"protocol":"TCP","targetPort":3000}],"selector":{"app.kubernetes.io/instance":"kube-prometheus-stack","app.kubernetes.io/name":"grafana"},"sessionAffinity":"None","type":"LoadBalancer"},"status":{"loadBalancer":{}}}
+    meta.helm.sh/release-name: kube-prometheus-stack
+    meta.helm.sh/release-namespace: monit
+  creationTimestamp: "2021-06-26T09:00:53Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app.kubernetes.io/instance: kube-prometheus-stack
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/version: 8.0.3
+    helm.sh/chart: grafana-6.13.5
+  name: kube-prometheus-stack-grafana
+  namespace: monit
+  resourceVersion: "11010"
+  uid: ef8bfa82-102a-4b22-b258-dc56c436cf19
+spec:
+  clusterIP: 172.20.158.81
+  clusterIPs:
+  - 172.20.158.81
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: service
+    nodePort: 31747
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: kube-prometheus-stack
+    app.kubernetes.io/name: grafana
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: aef8bfa82102a4b22b258dc56c436cf1-154403971.us-west-2.elb.amazonaws.com

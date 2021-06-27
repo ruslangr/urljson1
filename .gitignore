@@ -12,3 +12,7 @@ terra/var.tf
 terra/kubeconfig_ruslangr-eks
 /gitlab/cicd-cls-c875b50c45c8.json
 gitlab/.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+

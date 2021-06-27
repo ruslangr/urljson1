@@ -79,9 +79,6 @@ func main() {
 
 	mWeather := getJson(bodyByte)
 
-	//connection to db:
-	//	connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable host=pghost"
-
 	userDb := os.Getenv("userdb")
 	passDb := os.Getenv("passdb")
 	nameDb := os.Getenv("namedb")
@@ -90,14 +87,7 @@ func main() {
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
 	fmt.Println(connStr)
-	/*
-		connStr, err := ioutil.ReadFile("/app/connStr")
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(string(connStr))
-	*/
-	//connStr := "user=postgres password=p0STgreS dbname=postgres sslmode=disable"
+
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {
 		panic(err)
@@ -166,8 +156,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	defer rows.Close()
-
-	//fmt.Println(rows)
 
 	qWeather := []fromDb{}
 

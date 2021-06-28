@@ -106,12 +106,6 @@ func main() {
 	//first write to DB
 	writeToDb(mWeather, db)
 
-	//check if row not exist - write to DB
-	//	fl := rowExists("SELECT ID FROM Weather WHERE ID=$1", mWeather.ConsolidatedWeather[0].ID)
-	//	if fl == false {
-	//		writeToDb(mWeather, db)
-	//	}
-
 	go getAndWrite(Url, db)
 
 	http.HandleFunc("/create", CreateHandler)

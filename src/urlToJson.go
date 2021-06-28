@@ -72,8 +72,6 @@ type fromDb struct {
 var database *sql.DB
 
 func main() {
-	fmt.Println("New image!!!")
-
 	Url := "https://www.metaweather.com/api/location/2122265"
 
 	bodyByte := getUrl(Url)
@@ -88,8 +86,6 @@ func main() {
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
 	//fmt.Println(connStr)
-
-	fmt.Println("NEW!!! test deploy in kube")
 
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {
@@ -112,7 +108,6 @@ func main() {
 
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
-	fmt.Println("NEW!!! test deploy in kube")
 	http.ListenAndServe(":8181", nil)
 }
 

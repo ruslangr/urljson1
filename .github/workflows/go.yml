@@ -31,7 +31,7 @@ jobs:
         login: ${{ secrets.SONARQUBE_TOKEN }}
       
     - name: Build app
-      run: go build ./src/urlToJson.go
+      run: CGO_ENABLED=0 go build ./src/urlToJson.go
       
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1

@@ -112,6 +112,7 @@ func main() {
 
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
+	fmt.Println("NEW!!! test deploy in kube")
 	http.ListenAndServe(":8181", nil)
 }
 

@@ -109,6 +109,8 @@ func main() {
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
 	http.ListenAndServe(":8181", nil)
+
+	fmt.Println("From test branch!")
 }
 
 func getUrl(url string) []byte {

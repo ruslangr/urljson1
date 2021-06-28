@@ -72,6 +72,8 @@ type fromDb struct {
 var database *sql.DB
 
 func main() {
+	fmt.Println("New image!!!")
+
 	Url := "https://www.metaweather.com/api/location/2122265"
 
 	bodyByte := getUrl(Url)

@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ test ]
+#  pull_request:
+#   branches: [ main ]
 
 jobs:
 
@@ -47,7 +47,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ruslangr/urltojson:latest
+        tags: ruslangr/urltojson-test:latest
         
     - name: AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -59,15 +59,15 @@ jobs:
     - name: Deploy image to K8S cluster                                                                            
       uses: kodermax/kubectl-aws-eks@master                                                                         
       env:                                                                                                          
-        RELEASE_IMAGE: ruslangr/urltojson:latest
+        RELEASE_IMAGE: ruslangr/urltojson-test:latest
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: rollout restart deployment/urltojson-app -n prod
+        args: rollout restart deployment/urltojson-app -n test
 
     - name: Update deployment at K8S cluster
       uses: kodermax/kubectl-aws-eks@master
       env:
-        RELEASE_IMAGE: ruslangr/urltojson:latest
+        RELEASE_IMAGE: ruslangr/urltojson-test:latest
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: apply -f kubeconf/deploy.yml -n prod
+        args: apply -f kubeconf/deploy.yml -n test

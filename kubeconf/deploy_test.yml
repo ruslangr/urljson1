@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: urltojson-app
+  name: urltojson-app-test
 #  namespace: prod
 
 spec:
   selector:
     matchLabels:
-      app: urltojson-app
+      app: urltojson-app-test
 #  replicas: 3
   template:
     metadata:
       labels:
-        app: urltojson-app
+        app: urltojson-app-test
     spec:
       containers:
       - name: urltojson
-        image: ruslangr/urltojson:latest
+        image: ruslangr/urltojson-test:latest
         imagePullPolicy: Always
         resources:
           requests:
@@ -51,11 +51,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: urltojson-app
+  name: urltojson-app-test
 spec:
   type: LoadBalancer
   selector:
-    app: urltojson-app
+    app: urltojson-app-test
   ports:
   - protocol: TCP
     port: 8181

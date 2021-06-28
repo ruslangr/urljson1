@@ -64,4 +64,4 @@ jobs:
       with:
         #args: rollout status deployment/urltojson-app
         #args: apply -f kubeconf/deploy.yml
-        args: rollout restart deployment/urltojson-app
+        args: rollout restart deployment/urltojson-app -n prod

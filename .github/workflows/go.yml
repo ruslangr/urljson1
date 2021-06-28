@@ -63,4 +63,5 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         #args: rollout status deployment/urltojson-app
-        args: apply -f kubeconf/deploy.yml
+        #args: apply -f kubeconf/deploy.yml
+        args: rollout restart deployment/urltojson-app

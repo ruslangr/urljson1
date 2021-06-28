@@ -87,7 +87,7 @@ func main() {
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
 	//fmt.Println(connStr)
 
-	fmt.Println("test deploy in kube")
+	fmt.Println("NEW!!! test deploy in kube")
 
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {

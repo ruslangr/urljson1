@@ -56,10 +56,18 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
           
-    - name: Deploy to K8S cluster                                                                            
+    - name: Deploy image to K8S cluster                                                                            
       uses: kodermax/kubectl-aws-eks@master                                                                         
       env:                                                                                                          
         RELEASE_IMAGE: ruslangr/urltojson:latest
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: rollout restart deployment/urltojson-app -n prod
+
+    - name: Update deployment at K8S cluster
+      uses: kodermax/kubectl-aws-eks@master
+      env:
+        RELEASE_IMAGE: ruslangr/urltojson:latest
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: apply -f kubeconf/deploy.yml -n prod

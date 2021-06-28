@@ -72,9 +72,9 @@ type fromDb struct {
 var database *sql.DB
 
 func main() {
-	url := "https://www.metaweather.com/api/location/2122265"
+	Url := "https://www.metaweather.com/api/location/2122265"
 
-	bodyByte := getUrl(url)
+	bodyByte := getUrl(Url)
 
 	mWeather := getJson(bodyByte)
 
@@ -101,11 +101,16 @@ func main() {
 		fmt.Println("Connection OK")
 	}
 
+	//first write to DB
+	writeToDb(mWeather, db)
+
 	//check if row not exist - write to DB
-	fl := rowExists("SELECT ID FROM Weather WHERE ID=$1", mWeather.ConsolidatedWeather[0].ID)
-	if fl == false {
-		writeToDb(mWeather, db)
-	}
+	//	fl := rowExists("SELECT ID FROM Weather WHERE ID=$1", mWeather.ConsolidatedWeather[0].ID)
+	//	if fl == false {
+	//		writeToDb(mWeather, db)
+	//	}
+
+	go getAndWrite(Url, db)
 
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
@@ -209,5 +214,28 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 		//		http.Redirect(w, r, "/", 301)
 	} else {
 		http.ServeFile(w, r, "template/create.html")
+	}
+}
+func getAndWrite(url string, db *sql.DB) {
+	for {
+		t := time.Now()
+		cTime := t.Format(time.Kitchen)
+
+		if cTime == "9:01AM" || cTime == "12:01PM" || cTime == "3:01PM" || cTime == "6:01PM" || cTime == "9:01PM" || cTime == "00:01AM" || cTime == "3:01AM" || cTime == "6:01AM" {
+			bodyByte := getUrl(url)
+
+			mWeather := getJson(bodyByte)
+
+			//check if row not exist - write to DB
+			for i := 0; i <= len(mWeather.ConsolidatedWeather); i++ {
+				fl := rowExists("SELECT ID FROM Weather WHERE ID=$1", mWeather.ConsolidatedWeather[i].ID)
+				if fl == true {
+					break
+				}
+				if fl == false {
+					writeToDb(mWeather, db)
+				}
+			}
+		}
 	}
 }

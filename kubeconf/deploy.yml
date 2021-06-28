@@ -12,7 +12,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: urltojson-app
-  namespace: prod
+#  namespace: prod
+
 spec:
   selector:
     matchLabels:
@@ -26,7 +27,7 @@ spec:
       containers:
       - name: urltojson
         image: ruslangr/urltojson:latest
-        imagePullPolicy: "Always"
+        imagePullPolicy: Always
         env:
         - name: hostdb
           valueFrom: 

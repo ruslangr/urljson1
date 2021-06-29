@@ -108,6 +108,7 @@ func main() {
 
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
+	fmt.Println("test before release!")
 	http.ListenAndServe(":8181", nil)
 }
 

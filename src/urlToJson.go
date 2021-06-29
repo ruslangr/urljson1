@@ -85,7 +85,6 @@ func main() {
 	hostDb := os.Getenv("hostdb")
 
 	connStr := "user=" + userDb + " " + "password=" + passDb + " " + "dbname=" + nameDb + " " + "sslmode=" + sslmodeDb + " " + "host=" + hostDb
-	//fmt.Println(connStr)
 
 	db, err := sql.Open("postgres", string(connStr))
 	if err != nil {
@@ -108,7 +107,7 @@ func main() {
 
 	http.HandleFunc("/create", CreateHandler)
 	fmt.Println("Server is listening...")
-	fmt.Println("test before release!")
+	fmt.Println("Diplom!!!")
 	http.ListenAndServe(":8181", nil)
 }
 

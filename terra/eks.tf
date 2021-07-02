@@ -22,7 +22,7 @@ module "eks" {
 
   workers_group_defaults = {
     root_volume_type = "gp2"
-    volume_size = "8"
+    volume_size = "12"
   }
 
   worker_groups = [

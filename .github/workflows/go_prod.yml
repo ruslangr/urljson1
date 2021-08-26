@@ -1,5 +1,8 @@
 name: Go
 
+env:
+  GOVER: 1.15
+
 on:
   push:
     branches: [ main ]
@@ -16,7 +19,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.15
+        go-version: $GOVER
 
     - name: Install dependenses glog
       run: go get github.com/golang/glog
